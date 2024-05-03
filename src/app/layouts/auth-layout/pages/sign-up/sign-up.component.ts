@@ -81,7 +81,7 @@ export class SignUpComponent implements OnInit, AfterViewInit {
       title: 'Flatearth dating Registration',
       url: `${environment.webUrl}sign-up`,
       description: 'Registration page',
-      image: `${environment.webUrl}assets/images/landingpage/Healing-Tube-Logo.png`,
+      image: `${environment.webUrl}assets/images/landingpage/cover.png`,
     };
     this.seoService.updateSeoMetaData(data);
     this.theme = localStorage.getItem('theme');
