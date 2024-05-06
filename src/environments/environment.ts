@@ -13,6 +13,6 @@ export const environment = {
   webUrl: webUrl,
   tubeUrl: tubeUrl,
   domain: '.flatearth.dating',
-  siteKey: '0x4AAAAAAATU1CBk_lvwGxIy',
-  secretKey: '0x4AAAAAAATU1GanFiWSflL_7a_cnZt_SKM',
+  siteKey: '0x4AAAAAAAZb4JlIfSDw1ILo',
+  secretKey: '0x4AAAAAAAZb4OkAFVgzEsI0HIa4z79Khh4',
 };
