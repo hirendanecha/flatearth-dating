@@ -80,7 +80,8 @@ export class SignUpComponent implements OnInit, AfterViewInit {
     const data = {
       title: 'FlatEarth.dating Registration',
       url: `${environment.webUrl}sign-up`,
-      description:'Registration page',
+      // description:'Registration page',
+      description:'Like Minded Flat Earth Singles Flat Earth Social Network',
       image: `${environment.webUrl}assets/images/landingpage/meta.png`,
     };
     this.seoService.updateSeoMetaData(data);
