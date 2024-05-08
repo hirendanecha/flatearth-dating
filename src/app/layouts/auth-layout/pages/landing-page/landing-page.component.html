@@ -1,6 +1,6 @@
 <div class="main-container">
   <nav class="navbar navbar-light px-6 px-sm-10 auth-btns">
-    <div class="d-flex flex-column">
+    <div class="d-flex flex-column cursor" routerLink="/">
       <img
         src="/assets/images/landingpage/FlateEarth-Dating-Logo.png"
         class="h-60-px pt-2"
@@ -27,9 +27,9 @@
       </button>
     </div>
   </nav>
-<!-- <div class="custom-height" *ngIf="isInnerWidthSmall" (click)="closeMenu()"></div> -->
+<div class="custom-mobile-height" *ngIf="isInnerWidthSmall" (click)="closeMenu()"></div>
   <div (click)="closeMenu()">
-    <div class="d-flex flex-column py-10" [ngClass]="!isInnerWidthSmall ? 'custom-height' : 'custom-height'">
+    <div class="d-flex flex-column py-10" [ngClass]="!isInnerWidthSmall ? 'custom-height' : ''">
       <div class="offset-sm-1">
         <div class="row m-0 justify-content-md-start justify-content-center offset-0">
           <div class="col-md-6 landing-text single-box p-5 m-2">
@@ -60,6 +60,7 @@
       </ng-container>
     </div>
   </div>
+  <div class="h-200-px" *ngIf="!isInnerWidthSmall"></div>
 </div>
 <ng-container *ngIf="mobileMenuToggle">
   <div class="main-area p-5 profile-content">

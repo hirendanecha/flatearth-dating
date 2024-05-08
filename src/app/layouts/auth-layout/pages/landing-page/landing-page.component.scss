@@ -17,7 +17,7 @@
     //   font-size: 16px;
     // }
   }
-  .landing-text{
+  .landing-text {
     max-width: 440px;
     width: 100%;
 
@@ -25,7 +25,14 @@
       max-width: fit-content;
     }
   }
-
+  .custom-mobile-height {
+    background-image: url(../../../../../assets/images/landingpage/flatearth-1.png);
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    object-fit: cover;
+    height: calc(40vh - 48px);
+  }
   .custom-height {
     background-image: url(../../../../../assets/images/landingpage/flatearth-1.png);
     background-size: auto 100%;
