@@ -88,7 +88,7 @@ export function app(): express.Express {
           description:
             'Like Minded Flat Earth Singles Flat Earth Social Network',
           image:
-            'https://www.flatearth.dating/assets/images/landingpage/profile.png',
+            'https://www.flatearth.dating/assets/images/landingpage/meta.png',
           site: 'https://www.flatearth.dating/',
           url: 'https://www.flatearth.dating' + params,
           keywords: 'FlatEarth.dating',
