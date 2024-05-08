@@ -38,7 +38,7 @@ export class ResearchDetailsComponent {
         if (res?.ID) {
           this.groupDetails = res;
           const data = {
-            title: `Flatearth dating Research ${this.groupDetails?.PageTitle}`,
+            title: `FlatEarth.dating Research ${this.groupDetails?.PageTitle}`,
             url: `${window.location.href}`,
             description: this.groupDetails?.PageDescription,
             image: this.groupDetails?.CoverPicName || this.groupDetails?.ProfilePicName

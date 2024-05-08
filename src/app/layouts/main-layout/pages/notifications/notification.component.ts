@@ -23,7 +23,7 @@ export class NotificationsComponent {
     private socketService: SocketService
   ) { 
     const data = {
-      title: 'Flatearth dating Notification',
+      title: 'FlatEarth.dating Notification',
       url: `${window.location.href}`,
       description: '',
     };

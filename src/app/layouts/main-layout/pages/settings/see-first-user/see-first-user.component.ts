@@ -19,7 +19,7 @@ export class SeeFirstUserComponent implements OnInit {
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
     const data = {
-      title: 'Flatearth dating See First User',
+      title: 'FlatEarth.dating See First User',
       url: `${window.location.href}`,
       description: '',
     };

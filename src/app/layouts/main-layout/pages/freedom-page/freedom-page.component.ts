@@ -29,7 +29,7 @@ export class FreedomPageComponent {
 
     this.getPages();
     const data = {
-      title: 'Flatearth dating Promote You!',
+      title: 'FlatEarth.dating Promote You!',
       url: `${location.href}`,
       description: '',
     };

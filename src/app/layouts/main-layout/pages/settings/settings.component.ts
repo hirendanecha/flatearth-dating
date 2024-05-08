@@ -24,7 +24,7 @@ export class SettingsComponent {
     private seoService:SeoService
   ) {
     const data = {
-      title: 'Flatearth dating Settings',
+      title: 'FlatEarth.dating Settings',
       url: `${location.href}`,
       description: '',
     };

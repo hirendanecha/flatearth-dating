@@ -67,7 +67,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
       this.type = 'success';
     }
     const data = {
-      title: 'Flatearth dating login',
+      title: 'FlatEarth.dating login',
       url: `${environment.webUrl}login`,
       description: 'login page',
       image: `${environment.webUrl}assets/images/landingpage/cover.png`,

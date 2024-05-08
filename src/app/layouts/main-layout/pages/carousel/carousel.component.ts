@@ -60,7 +60,7 @@ export class CarouselComponent implements OnInit {
     private seoService:SeoService
   ) {
     const data = {
-      title: 'Flatearth dating Carousel',
+      title: 'FlatEarth.dating Carousel',
       url: `${location.href}`,
       description: '',
     };

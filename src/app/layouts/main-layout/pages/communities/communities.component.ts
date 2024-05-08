@@ -37,7 +37,7 @@ export class CommunitiesComponent {
     }
     // this.getCommunities();
     const data = {
-      title: 'Flatearth dating Connection',
+      title: 'FlatEarth.dating Connection',
       url: `${window.location.href}`,
       description: '',
     };

@@ -12,7 +12,7 @@ export class ConnectionsComponent implements OnInit {
     private seoService:SeoService
   ) {
     const data = {
-      title: 'Flatearth dating Connections',
+      title: 'FlatEarth.dating Connections',
       url: `${location.href}`,
       description: '',
     };

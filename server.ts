@@ -175,7 +175,7 @@ export function app(): express.Express {
 
           console.log('group===>', group);
           const talent = {
-            name: `Flatearth dating Research ${group?.PageTitle}`,
+            name: `FlatEarth.dating Research ${group?.PageTitle}`,
             description: group?.PageDescription,
             image: group?.CoverPicName || group?.ProfilePicName,
           };
