@@ -125,7 +125,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     config.keyboard = false;
     config.pauseOnHover = false;
     const data = {
-      title: 'Flatearth dating',
+      title: 'FlatEarth.dating',
       url: `${location.href}`,
       description: '',
     };

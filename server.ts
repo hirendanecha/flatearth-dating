@@ -84,14 +84,14 @@ export function app(): express.Express {
         }
         const params = req.params[0];
         var seo: any = {
-          title: 'Flatearth dating',
+          title: 'FlatEarth.dating',
           description:
             'Like Minded Flat Earth Singles Flat Earth Social Network',
           image:
             'https://www.flatearth.dating/assets/images/landingpage/profile.png',
           site: 'https://www.flatearth.dating/',
           url: 'https://www.flatearth.dating' + params,
-          keywords: 'Flatearth dating',
+          keywords: 'FlatEarth.dating',
         };
         if (
           params.indexOf('connection/') > -1 ||
@@ -132,7 +132,7 @@ export function app(): express.Express {
           console.log({ params }, { id }, { profile: JSON.stringify(profile) });
           const talent = {
             name: profile[0]?.userName,
-            description: 'Flatearth dating',
+            description: 'FlatEarth.dating',
             image: profile?.[0]?.profilePictures?.[0]?.imageUrl,
           };
           // description: profile[0]?.FirstName + ' ' + profile[0]?.LastName,
