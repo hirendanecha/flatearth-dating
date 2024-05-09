@@ -70,7 +70,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
       title: 'FlatEarth.dating login',
       url: `${environment.webUrl}login`,
       description: 'login page',
-      image: `${environment.webUrl}assets/images/landingpage/meta.png`,
+      image: `${environment.webUrl}assets/images/landingpage/cover.png`,
     };
     this.theme = localStorage.getItem('theme');
     // this.seoService.updateSeoMetaData(data);

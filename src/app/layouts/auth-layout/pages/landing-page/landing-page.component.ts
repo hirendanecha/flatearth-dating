@@ -13,6 +13,7 @@ export class LandingPageComponent {
   mobileMenuToggle: boolean = false;
   isLogin: boolean = false;
   isInnerWidthSmall: boolean;
+  isRegister:boolean = false;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -29,7 +30,8 @@ export class LandingPageComponent {
     } else if (this.tokenStorageService.getToken()) {
       this.router.navigate(['/home']);
     }
-    this.isLogin = this.route.snapshot.routeConfig.path === 'login' || false;
+    this.isLogin = this.route.snapshot.routeConfig.path === 'login';
+    this.isRegister = this.route.snapshot.routeConfig.path === 'register';
     this.isInnerWidthSmall = window.innerWidth < 768;
     this.ngZone.runOutsideAngular(() => {
       window.addEventListener('resize', this.onResize.bind(this));
