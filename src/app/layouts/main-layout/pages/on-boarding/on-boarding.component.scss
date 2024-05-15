@@ -198,6 +198,10 @@
   //   }
   // }
 
+  .input-textarea{
+    color: var(--para-2nd-color);
+  }
+
   .chip-group {
     display: flex;
 
@@ -213,7 +217,6 @@
       margin-right: 6px;
       margin-bottom: 6px;
       text-transform: capitalize;
-
       > * {
         margin-right: 2px;
         margin-left: 2px;

@@ -69,7 +69,7 @@ export class SeoService {
     }
 
     if (!tagValue.image) {
-      tagValue.image = 'https://www.flatearth.dating/assets/images/banner/cover.png';
+      tagValue.image = 'https://freedom.buzz/assets/images/banner/Healing-Tube-Logo.png';
     }
 
     this.meta.updateTag({

@@ -5,6 +5,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { debounceTime, fromEvent } from 'rxjs';
 import { CustomerService } from 'src/app/@shared/services/customer.service';
 import { SharedService } from 'src/app/@shared/services/shared.service';
+import { SocketService } from 'src/app/@shared/services/socket.service';
 import { ToastService } from 'src/app/@shared/services/toast.service';
 import { TokenStorageService } from 'src/app/@shared/services/token-storage.service';
 import { UploadFilesService } from 'src/app/@shared/services/upload-files.service';
@@ -35,7 +36,7 @@ export class OnBoardingComponent implements OnInit {
     'WHO ARE YOU LOOKING FOR?',
     'WHO ARE YOU LOOKING FOR?',
     'WHO ARE YOU LOOKING FOR?',
-    'FLAT EARTH',
+    'My Story',
   ];
   childOptions = [
     'No',
@@ -82,7 +83,13 @@ export class OnBoardingComponent implements OnInit {
     `Don't know yet`,
     'Other',
   ];
-  bodyTypeOptions = ['It does not matter', 'Slim', 'Athletic', 'Average', 'Stout'];
+  bodyTypeOptions = [
+    'It does not matter',
+    'Slim',
+    'Athletic',
+    'Average',
+    'Stout',
+  ];
   defaultCountry = 'US';
   feetOptions: number[] = [];
   inchOptions: number[] = [];
@@ -100,10 +107,10 @@ export class OnBoardingComponent implements OnInit {
   statusofEthnicity: string = '';
   statusofReligion: string = '';
   statusofSmoke: string = '';
-  statusofEarth:string=''; 
   selectedRelationOptions: string[] = [];
   userId: number;
   profileId: number;
+
   matchStatusofVaccine: string = '';
   matchStatusofChild: string = '';
   matchStatusofStudy: string = '';
@@ -122,7 +129,6 @@ export class OnBoardingComponent implements OnInit {
     ethnicity: new FormControl('', [Validators.required]),
     religion: new FormControl('', [Validators.required]),
     isSmoke: new FormControl('', [Validators.required]),
-    flatearth: new FormControl('', [Validators.required]),
     relationshipType: new FormControl('', [Validators.required]),
     height: new FormControl('', [Validators.required]),
     country: new FormControl('US', [Validators.required]),
@@ -136,6 +142,10 @@ export class OnBoardingComponent implements OnInit {
     matchBodyType: new FormControl('', [Validators.required]),
     matchReligion: new FormControl('', [Validators.required]),
     matchIsSmoke: new FormControl('', [Validators.required]),
+    idealText: new FormControl('', [
+      Validators.minLength(20),
+      Validators.maxLength(500),
+    ]),
   });
 
   constructor(
@@ -146,7 +156,8 @@ export class OnBoardingComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private tokenStorageService: TokenStorageService,
-    private sharedService: SharedService
+    private sharedService: SharedService,
+    private socketService: SocketService
   ) {
     this.route.queryParams.subscribe((params) => {
       const token = params['token'];
@@ -170,15 +181,21 @@ export class OnBoardingComponent implements OnInit {
   }
   visibleSteps(): number[] {
     let rangeStart = Math.max(0, this.currentStep - 2);
-    let rangeEnd = Math.min(this.steps.length-1, rangeStart + 9);
+    let rangeEnd = Math.min(this.steps.length - 1, rangeStart + 9);
     if (rangeEnd - rangeStart < 9) {
       if (rangeStart === 1) {
-        rangeEnd = Math.min(this.steps.length, rangeEnd + (9 - (rangeEnd - rangeStart)));
+        rangeEnd = Math.min(
+          this.steps.length,
+          rangeEnd + (9 - (rangeEnd - rangeStart))
+        );
       } else {
         rangeStart = Math.max(1, rangeStart - (9 - (rangeEnd - rangeStart)));
       }
     }
-    return Array.from({ length: rangeEnd - rangeStart + 1 }, (_, i) => i + rangeStart);
+    return Array.from(
+      { length: rangeEnd - rangeStart + 1 },
+      (_, i) => i + rangeStart
+    );
   }
 
   getImageName(step: string): string {
@@ -203,8 +220,8 @@ export class OnBoardingComponent implements OnInit {
         return 'smoke.png';
       case 'What type of relationship are you looking for?':
         return 'relationship.png';
-      case 'FLAT EARTH':
-        return 'flatearth.png';
+      case 'WHO ARE YOU LOOKING FOR?':
+        return 'search.png';
       default:
         return 'default.png';
     }
@@ -326,11 +343,17 @@ export class OnBoardingComponent implements OnInit {
   isNextButtonDisabled(): boolean {
     switch (this.currentStep) {
       case 0:
-        return !this.onBoardingForm.get('zip').valid && !this.onBoardingForm.get('city').valid;
+        return (
+          !this.onBoardingForm.get('zip').valid &&
+          !this.onBoardingForm.get('city').valid
+        );
       case 1:
         return !this.profileImg.file;
       case 2:
-        return !this.onBoardingForm.get('isFluShot').valid || !this.onBoardingForm.get('isVaccinated').valid;
+        return (
+          !this.onBoardingForm.get('isFluShot').valid ||
+          !this.onBoardingForm.get('isVaccinated').valid
+        );
       case 3:
         return !this.onBoardingForm.get('haveChild').valid;
       case 4:
@@ -345,20 +368,20 @@ export class OnBoardingComponent implements OnInit {
         return !this.onBoardingForm.get('isSmoke').valid;
       case 9:
         return !this.onBoardingForm.get('relationshipType').valid;
-        case 10:
-          return !this.onBoardingForm.get('matchIsVaccinated').valid;
-        case 11:
-          return !this.onBoardingForm.get('matchHaveChild').valid;
-        case 12:
-          return !this.onBoardingForm.get('matchEducation').valid;
-        case 13:
-          return !this.onBoardingForm.get('matchEthnicity').valid;
-        case 14:
-          return !this.onBoardingForm.get('matchBodyType').valid;
-        case 15:
-          return !this.onBoardingForm.get('matchReligion').valid;
-        case 16:
-          return !this.onBoardingForm.get('matchIsSmoke').valid;
+      case 10:
+        return !this.onBoardingForm.get('matchIsVaccinated').valid;
+      case 11:
+        return !this.onBoardingForm.get('matchHaveChild').valid;
+      case 12:
+        return !this.onBoardingForm.get('matchEducation').valid;
+      case 13:
+        return !this.onBoardingForm.get('matchEthnicity').valid;
+      case 14:
+        return !this.onBoardingForm.get('matchBodyType').valid;
+      case 15:
+        return !this.onBoardingForm.get('matchReligion').valid;
+      case 16:
+        return !this.onBoardingForm.get('matchIsSmoke').valid;
       case 17:
         return !this.onBoardingForm.get('flatearth').valid;
       default:
@@ -387,14 +410,17 @@ export class OnBoardingComponent implements OnInit {
     const userName = this.tokenStorageService.getUser()?.userName;
     this.onBoardingForm.get('userId').setValue(this.userId);
     this.onBoardingForm.get('userName').setValue(userName);
+    // console.log(this.onBoardingForm.value);
     this.customerService
       .updateProfile(this.profileId, this.onBoardingForm.value)
       .subscribe({
         next: (res: any) => {
           this.spinner.hide();
           if (!res.error) {
+            localStorage.setItem('profileId', String(this.profileId));
             this.toastService.success(res.message);
             this.sharedService.getUserDetails();
+            this.socketService.connect();
             this.router.navigate([`/home`]);
           } else {
             this.toastService.danger(res?.message);
@@ -552,7 +578,7 @@ export class OnBoardingComponent implements OnInit {
   matchEthnicities() {
     return ['It does not matter', ...this.ethnicities];
   }
-  
+
   matchReligions() {
     return ['It does not matter', ...this.religions];
   }
@@ -563,19 +589,27 @@ export class OnBoardingComponent implements OnInit {
 
   matchVaccineStatus(vaccine: string) {
     this.matchStatusofVaccine = vaccine;
-    this.onBoardingForm.get('matchIsVaccinated').setValue(this.matchStatusofVaccine);
+    this.onBoardingForm
+      .get('matchIsVaccinated')
+      .setValue(this.matchStatusofVaccine);
   }
 
   matchChildStatus(child: string) {
+    let mappedValue: string;
+    if (child === 'Yes') {
+      mappedValue = 'Y';
+    } else if (child === 'No') {
+      mappedValue = 'N';
+    }
     this.matchStatusofChild = child;
-    this.onBoardingForm.get('matchHaveChild').setValue(this.matchStatusofChild);
+    this.onBoardingForm.get('matchHaveChild').setValue(mappedValue);
   }
 
   matchStudyStatus(study: string) {
     this.matchStatusofStudy = study;
     this.onBoardingForm.get('matchEducation').setValue(this.matchStatusofStudy);
   }
-  
+
   matchBodyType(body: string) {
     this.matchStatusofBody = body;
     this.onBoardingForm.get('matchBodyType').setValue(this.matchStatusofBody);
@@ -583,12 +617,16 @@ export class OnBoardingComponent implements OnInit {
 
   matchEthnicityStatus(ethnicity: string) {
     this.matchStatusofEthnicity = ethnicity;
-    this.onBoardingForm.get('matchEthnicity').setValue(this.matchStatusofEthnicity);
+    this.onBoardingForm
+      .get('matchEthnicity')
+      .setValue(this.matchStatusofEthnicity);
   }
 
   matchReligionStatus(religion: string) {
     this.matchStatusofReligion = religion;
-    this.onBoardingForm.get('matchReligion').setValue(this.matchStatusofReligion);
+    this.onBoardingForm
+      .get('matchReligion')
+      .setValue(this.matchStatusofReligion);
   }
 
   matchSmokeStatus(smoke: string) {
@@ -603,17 +641,4 @@ export class OnBoardingComponent implements OnInit {
     this.matchStatusofSmoke = smoke;
     this.onBoardingForm.get('matchIsSmoke').setValue(mappedValue);
   }
-
-  earthStatus(earth:string){
-    let isFlatearth:string;
-    if(earth === 'Yes'){
-      isFlatearth = 'Y';
-    }else if(earth === 'No'){
-      isFlatearth = 'N';
-    }
-    this.statusofEarth = earth;
-    this.onBoardingForm.get('flatearth').setValue(isFlatearth);
-    console.log(isFlatearth);
-  }
-
 }

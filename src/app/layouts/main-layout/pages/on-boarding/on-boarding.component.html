@@ -3,16 +3,12 @@
     <form class="msform" [formGroup]="onBoardingForm">
       <ul class="d-flex progressbar p-0">
         <li *ngFor="let step of visibleSteps(); let i = index"
-            [class.active]="step <= currentStep " 
+            [class.active]="step <= currentStep" 
             class="step"
-            [attr.data-step]="step + 1"
-            >
-            
-          </li>
+            [attr.data-step]="step + 1">
             <!-- (click)="goToStep(step)" -->
-            
-            <!-- [attr.data-step]="step + 1" -->
             <!-- {{ step }} -->
+          </li>
         </ul>
         <!-- <ul class="d-flex progressbar p-0">
           <li
@@ -573,34 +569,22 @@
           </div>
         </ng-container>
         <ng-container *ngIf="i === 17">
-          <div class="d-center">
-            <div
-            class="d-flex flex-column gap-3 chip-group"
-            tabindex="-1"
-            role="radiogroup"
-            >
-            <label class="form-label"
-            >Is the earth flat?<span class="text-danger"
-              >*</span
-            ></label>
-              <div
-                *ngFor="let option of noYesOptions"
-                (click)="earthStatus(option)"
-                [ngClass]="statusofEarth === option ? 'active' : ''"
-                class="chip chip-checkbox justify-content-center w-268-px"
-                tabindex="0"
-                role="radio"
-                aria-checked="false"
-                [attr.id]="generateId(option)"
-              >
-                <input type="radio" name="radioEx" />
-                <span [attr.id]="'radioTwoLabel_' + generateId(option)">{{
-                  option
-                }}</span>
-              </div>
+          <h5 class="text-center">Please tell your match your story!</h5>
+          <div class="d-flex flex-column text-start">
+            <textarea
+              class="input-textarea"
+              cols="30"
+              rows="8"
+              placeholder="start typing..."
+              formControlName="idealText"
+            ></textarea>
+            <span class="text-danger">{{ onBoardingForm.get('idealText').value?.length || 0 }} / 500</span>
+            <div *ngIf="onBoardingForm.get('idealText').invalid && (onBoardingForm.get('idealText').dirty || onBoardingForm.get('idealText').touched)">
+              <div *ngIf="onBoardingForm.get('idealText').errors?.minlength" class="text-danger">Minimum length is 20 characters.</div>
+              <div *ngIf="onBoardingForm.get('idealText').errors?.maxlength" class="text-danger">Maximum length is 500 characters.</div>
             </div>
           </div>
-        </ng-container> 
+        </ng-container>
         <input
           *ngIf="i !== 0"
           type="button"

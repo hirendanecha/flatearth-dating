@@ -15,4 +15,7 @@ export const environment = {
   domain: '.flatearth.dating',
   siteKey: '0x4AAAAAAAZb4JlIfSDw1ILo',
   secretKey: '0x4AAAAAAAZb4OkAFVgzEsI0HIa4z79Khh4',
+  qrLink: `${webUrl}settings/edit-profile/`,
+  EncryptIV: 8625401029409790,
+  EncryptKey: 8625401029409790,
 };
