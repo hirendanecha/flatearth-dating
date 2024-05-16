@@ -37,6 +37,7 @@ export class OnBoardingComponent implements OnInit {
     'WHO ARE YOU LOOKING FOR?',
     'WHO ARE YOU LOOKING FOR?',
     'My Story',
+    'Interest',
   ];
   childOptions = [
     'No',
@@ -110,7 +111,7 @@ export class OnBoardingComponent implements OnInit {
   selectedRelationOptions: string[] = [];
   userId: number;
   profileId: number;
-
+  statusofEarth: string = '';
   matchStatusofVaccine: string = '';
   matchStatusofChild: string = '';
   matchStatusofStudy: string = '';
@@ -142,11 +143,17 @@ export class OnBoardingComponent implements OnInit {
     matchBodyType: new FormControl('', [Validators.required]),
     matchReligion: new FormControl('', [Validators.required]),
     matchIsSmoke: new FormControl('', [Validators.required]),
-    idealText: new FormControl('', [
+    idealDate: new FormControl('', [
       Validators.minLength(20),
       Validators.maxLength(500),
     ]),
+    interests: new FormControl([]),
+    flatearth: new FormControl(''),
   });
+
+  selectedInterests: number[] = [];
+  removeInterestList: number[] = [];
+  interests: any[];
 
   constructor(
     private spinner: NgxSpinnerService,
@@ -167,6 +174,7 @@ export class OnBoardingComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllCountries();
+    this.getAllinterests();
   }
 
   ngAfterViewInit(): void {
@@ -222,6 +230,8 @@ export class OnBoardingComponent implements OnInit {
         return 'relationship.png';
       case 'WHO ARE YOU LOOKING FOR?':
         return 'search.png';
+      case 'FLAT EARTH':
+        return 'flatearth.png';
       default:
         return 'default.png';
     }
@@ -324,6 +334,16 @@ export class OnBoardingComponent implements OnInit {
       },
       {
         step: 17,
+        condition: true,
+        errorMessage: '',
+      },
+      {
+        step: 18,
+        condition: true,
+        errorMessage: '',
+      },
+      {
+        step: 19,
         condition: this.onBoardingForm.get('flatearth').valid,
         errorMessage: 'Please select an option',
       },
@@ -382,8 +402,6 @@ export class OnBoardingComponent implements OnInit {
         return !this.onBoardingForm.get('matchReligion').valid;
       case 16:
         return !this.onBoardingForm.get('matchIsSmoke').valid;
-      case 17:
-        return !this.onBoardingForm.get('flatearth').valid;
       default:
         return !this.onBoardingForm.valid;
     }
@@ -410,7 +428,8 @@ export class OnBoardingComponent implements OnInit {
     const userName = this.tokenStorageService.getUser()?.userName;
     this.onBoardingForm.get('userId').setValue(this.userId);
     this.onBoardingForm.get('userName').setValue(userName);
-    // console.log(this.onBoardingForm.value);
+    this.onBoardingForm.get('interests').setValue(this.selectedInterests);
+    console.log(this.onBoardingForm.value);
     this.customerService
       .updateProfile(this.profileId, this.onBoardingForm.value)
       .subscribe({
@@ -636,9 +655,61 @@ export class OnBoardingComponent implements OnInit {
     } else if (smoke === 'No') {
       mappedValue = 'N';
     } else {
-      mappedValue = 'It does not matter';
+      mappedValue = 'N';
     }
     this.matchStatusofSmoke = smoke;
     this.onBoardingForm.get('matchIsSmoke').setValue(mappedValue);
+  }
+
+  getAllinterests() {
+    this.customerService.getInterests().subscribe({
+      next: (result) => {
+        this.interests = result.data;
+      },
+      error: (error) => {
+        console.log(error);
+      },
+    });
+  }
+
+  onClickInterest(id: number) {
+    const index = this.selectedInterests.indexOf(id);
+    if (index === -1 && this.selectedInterests.length < 10) {
+      this.selectedInterests.push(id);
+      // if (this.removeInterestList.includes(id)) {
+      //   this.removeInterestList.splice(index, 1);
+      // }
+    } else if (index !== -1) {
+      this.selectedInterests.splice(index, 1);
+      // this.selectedInterests.forEach((interest: any) => {
+      //   if (
+      //     id === interest.interestId &&
+      //     !this.removeInterestList.includes(id)
+      //   ) {
+      //     this.removeInterestList.push(id);
+      //   }
+      // });
+      console.log(this.selectedInterests);
+    } else {
+      this.toastService.danger(
+        'You can only select up to 10 values at a time.'
+      );
+    }
+  }
+
+  isSelected(id: number): boolean {
+    return this.selectedInterests.includes(id);
+  }
+
+  earthStatus(earth:string){
+    let isFlatearth:string;
+    if(earth === 'Yes'){
+      isFlatearth = 'Y';
+    }else if(earth === 'No'){
+      isFlatearth = 'N';
+    }
+    this.statusofEarth = earth;
+    this.onBoardingForm.get('flatearth').setValue(isFlatearth);
+    console.log(isFlatearth);
   }
 }
