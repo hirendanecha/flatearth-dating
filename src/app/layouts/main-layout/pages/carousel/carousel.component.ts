@@ -81,7 +81,7 @@ export class CarouselComponent implements OnInit {
     const gender = this.tokenStorageService.getUser()?.gender;
 
     this.customerService
-      .getPictures(paggination.page, paggination.limit, this.profileId, gender)
+      .getPictures(paggination.page, paggination.limit, this.profileId, String(gender))
       .subscribe({
         next: (res: any) => {
           this.dataList = res.data;

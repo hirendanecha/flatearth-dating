@@ -145,7 +145,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.isNavigationEnd = true;
       });
       const data = {
-        title: 'Flatearth.dating-Home',
+        title: 'FlatEarth.dating-Home',
         url: `${location.href}`,
       };
       this.seoService.updateSeoMetaData(data);

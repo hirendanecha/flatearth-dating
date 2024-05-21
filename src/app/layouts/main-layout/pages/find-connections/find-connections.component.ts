@@ -95,7 +95,7 @@ export class ConnectionsComponent implements OnInit {
     if (!profile.profilePictures || profile.profilePictures.length === 0) {
       profile.profilePictures = [
         {
-          imageUrl: '/assets/images/landingpage/OD-default-profile.png',
+          imageUrl: '/assets/images/landingpage/cover.png',
         },
       ];
     }

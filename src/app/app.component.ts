@@ -30,7 +30,7 @@ import { TokenStorageService } from './@shared/services/token-storage.service';
 export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   @Output('newRoomCreated') newRoomCreated: EventEmitter<any> =
     new EventEmitter<any>();
-  title = 'freedom-ssr';
+  title = 'FlatEarth.dating';
   showButton = false;
   tab: any;
 
@@ -179,7 +179,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
                 this.router.navigate([`/dating-call/${callId}`], {
                   state: { chatDataPass },
                 });
-                // this.router.navigate([`/freedom-call/${data.link}`]);
+                // this.router.navigate([`/dating-call/${data.link}`]);
               }
               // window.open(`appointment-call/${data.link}`, '_blank');
               // window?.open(data?.link, '_blank');
