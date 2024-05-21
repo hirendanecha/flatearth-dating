@@ -113,6 +113,7 @@ export class CarouselComponent implements OnInit {
     }
     this.favoriteProfileService.addFavoriteProfile(data).subscribe({
       next: (res) => {
+        this.favoriteProfileService.fetchFavoriteProfiles();
         this.toasterService.success('Profile successfully added to your favorites');
         this.getPictures(this.pagination);
       }
