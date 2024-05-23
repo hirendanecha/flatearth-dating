@@ -38,6 +38,7 @@ export class OnBoardingComponent implements OnInit {
     'WHO ARE YOU LOOKING FOR?',
     'My Story',
     'Interest',
+    'Is the earth flat?',
   ];
   childOptions = [
     'No',
