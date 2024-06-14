@@ -313,6 +313,7 @@ export class SharedModule {
       faBan,
       faSquarePlus,
       faMobile,
+      faChevronLeft,
     );
   }
 }
