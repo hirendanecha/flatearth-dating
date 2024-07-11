@@ -85,7 +85,7 @@ export class IncomingcallModalComponent
 
       console.log('incomin',this.calldata.link);
       // this.router.navigate([`/appointment-call/${this.calldata.link}`]);  
-      const callId = this.calldata.link.replace('https://facetime.tube/', '');
+      const callId = this.calldata.link.replace('https://meet.facetime.tube/', '');
       // this.router.navigate([`/dating-call/${callId}`]);
       this.sound?.stop();
       const chatDataPass = {
