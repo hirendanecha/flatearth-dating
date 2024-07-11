@@ -188,4 +188,10 @@ export class SocketService {
   switchChat(params, callback: (data: any) => void) {
     this.socket.emit('switch-group', params, callback);
   }
+  switchOnlineStatus(params, callback: (data: any) => void) {
+    this.socket.emit('change-status', params, callback);
+  }
+  getMessages(params, callback: (data: any) => void) {
+    this.socket.emit('get-messages', params, callback);
+  }
 }

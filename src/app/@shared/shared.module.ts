@@ -107,6 +107,13 @@ import {
   faPhoneSlash,
   faTicketAlt,
   faBan,
+  faSquarePlus,
+  faMobile,
+  faPhoneFlip,
+  faVoicemail,
+  faPhoneVolume,
+  faCircleChevronDown,
+  faCircleChevronUp,
 } from '@fortawesome/free-solid-svg-icons';
 import { ClaimTokenModalComponent } from './modals/clai-1776-token-modal/claim-token-modal.component';
 import { WalletLinkComponent } from './modals/wallet-download-modal/1776-wallet.component';
@@ -145,6 +152,7 @@ import { MediaGalleryComponent } from './components/media-gallery/media-gallery.
 import { GalleryImgPreviewComponent } from './components/gallery-img-preview/gallery-img-preview.component';
 import { QRCodeModule } from 'angularx-qrcode';
 import { RequestModalComponent } from './modals/request-modal/request-modal.component';
+import { ConferenceLinkComponent } from './modals/create-conference-link/conference-link-modal.component';
 
 const sharedComponents = [
   ConfirmationModalComponent,
@@ -183,7 +191,8 @@ const sharedComponents = [
   ForwardChatModalComponent,
   AppQrModalComponent,
   GalleryImgPreviewComponent,
-  RequestModalComponent
+  RequestModalComponent,
+  ConferenceLinkComponent
 ];
 
 const sharedModules = [
@@ -306,7 +315,15 @@ export class SharedModule {
       faUsers,
       faPhoneSlash,
       faTicketAlt,
-      faBan
+      faBan,
+      faSquarePlus,
+      faMobile,
+      faChevronLeft,
+      faPhoneFlip,
+      faVoicemail,
+      faPhoneVolume,
+      faCircleChevronUp,
+      faCircleChevronDown
     );
   }
 }
