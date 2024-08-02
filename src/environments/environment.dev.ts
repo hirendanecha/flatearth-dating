@@ -1,8 +1,8 @@
-const url = 'https://api.flatearth.dating';
+// const url = 'https://api.flatearth.dating';
 const webUrl = 'https://flatearth.dating/';
 const tubeUrl = 'https://tube.flatearth.dating/';
 
-// const url = 'http://localhost:8080';
+const url = 'http://192.168.29.211:8081';
 // const webUrl = 'http://localhost:4200/';
 
 export const environment = {
